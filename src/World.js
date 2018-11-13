@@ -8,10 +8,7 @@ class World {
     }
 
     Pan(x, y){
-        for(var i = 0; i<this.elements.length; i++)
-        {
-            this.elements[i].x = this.elements[i].x-x;
-            this.elements[i].y = this.elements[i].y+y;
-        }
+    var canvas = document.getElementById("mycanvas");
+    canvas.getContext("2d").translate(-x, y);
     }
 }
