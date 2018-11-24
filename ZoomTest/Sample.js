@@ -28,7 +28,7 @@ function main()
     imgSrc.w = 100;
     imgSrc.h = 100;
 
-    this.img = new Sprite(500, 400, 100, 100, imgSrc);
+    this.img = new Sprite(900, 450, 100, 100, imgSrc);
 
     var spr = new Sprite(50, 50, 100, 100, imgSrc);
 
@@ -41,11 +41,17 @@ function main()
 
 function zoomLoop(){
     if(count < 10)
-        gameNS.cameraSystem.Zoom(1.1); 
+        gameNS.cameraSystem.Zoom(0.5); 
     else if(count < 20)
-        gameNS.cameraSystem.Zoom(0.8); 
+        gameNS.cameraSystem.Zoom(0.75); 
     else if(count < 30)
-        gameNS.cameraSystem.Zoom(1.2); 
+        gameNS.cameraSystem.Zoom(1);
+    else if(count < 40)
+        gameNS.cameraSystem.Zoom(1.5); 
+    else if(count < 50)
+        gameNS.cameraSystem.Zoom(2); 
+    else if(count < 60) 
+        gameNS.cameraSystem.Zoom(4); 
 
     gameNS.cameraSystem.draw();
     count ++;

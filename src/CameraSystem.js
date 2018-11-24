@@ -37,21 +37,6 @@ class CameraSystem{
     }
 
     Zoom(zoomRatio){
-        //ex: input wants to get 4x zoom. Is at 2x zoom.
-        //zoomratio is at 4.
-        //zoomfactor is at 2(becomes 4) 
-        //actualzoom should become 2
-        //actualZoom = zoomRatio/zoomfactor?
-        //ex: input wants to get 1/2 zoom. Is at 4x zoom.
-        //zoomRatio is at 0.5
-        //zoomfactor is at 4(becomes 0.5)
-        //actualZoom should become 1/8
-        //actualZoom = zoomRatio/zoomfactor?
-        //ex: input wants to get 1/2 zoom. is at 1/2 zoom
-        //zoomratio is at 0.5
-        //zoomfactor is at 0.5
-        //actualzoom should become 1
-        //actualzoom = zoomratio/zoomfactor
         var actualZoom = zoomRatio/this.zoomFactor;
         this.zoomFactor = zoomRatio;
         this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
@@ -60,14 +45,6 @@ class CameraSystem{
     }
 
     ResetZoom(){
-        //ex: reset 4x zoom to 1x
-        //zoomfactor is at 4
-        //final zoom should be 1
-        //resetRatio should be 1/zoomfactor
-        //ex: reset 0.5x zoom to 1x
-        //zoomfactor is at 0.5
-        //final is 1
-        //resetratio should be 1/zoomfactor
         var resetRatio = 1/this.zoomFactor;
         this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
         this.world.canvas.getContext("2d").scale(resetRatio, resetRatio);
