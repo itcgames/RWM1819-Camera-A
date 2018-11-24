@@ -1,14 +1,16 @@
 class World {
-    constructor(){
+    constructor(canvas){
         this.elements = [];
+        this.canvas = canvas;
     }
 
     addElement(elem){
         this.elements.push(elem);
     }
-
-    Pan(x, y){
-    var canvas = document.getElementById("mycanvas");
-    canvas.getContext("2d").translate(-x, y);
+    
+    draw(){
+        this.elements.forEach(function(entry){
+            entry.draw(this.canvas);
+        },this)
     }
 }

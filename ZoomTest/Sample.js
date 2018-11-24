@@ -3,8 +3,7 @@ var count;
 
 function main()
 {
-    //var canvas = document.getElementById("mycanvas");
-    //this.ctx = this.canvas.getContext("2d");
+    //canvas init as required for camera system
     var worldCanvas = document.createElement('canvas');
     worldCanvas.id = 'worldSpace';
     worldCanvas.style.position = 'absolute';
@@ -19,6 +18,7 @@ function main()
     UICanvas.height = window.innerHeight;
     UICanvas.style.backgroundColor = "transparent";
     document.body.appendChild(UICanvas);
+    //init end
 
     gameNS.cameraSystem = new CameraSystem(worldCanvas, UICanvas);
     var imgSrc = new Image(100, 100);
@@ -28,7 +28,7 @@ function main()
     imgSrc.w = 100;
     imgSrc.h = 100;
 
-    this.img = new Sprite(100, 100, 100, 100, imgSrc);
+    this.img = new Sprite(500, 400, 100, 100, imgSrc);
 
     var spr = new Sprite(50, 50, 100, 100, imgSrc);
 
@@ -36,18 +36,16 @@ function main()
     gameNS.cameraSystem.addElementToCamera(spr);
     
     count = 0;
-    setInterval(panLoop, 33);
+    setInterval(zoomLoop, 33);
 }
 
-function panLoop(){
+function zoomLoop(){
     if(count < 10)
-        gameNS.cameraSystem.Pan(-10, 0); 
+        gameNS.cameraSystem.Zoom(1.1); 
     else if(count < 20)
-        gameNS.cameraSystem.Pan(0, 10);
-    else if(count < 25)
-        gameNS.cameraSystem.Pan(10, 0); 
-    else if (count < 30)
-        gameNS.cameraSystem.Pan(0, -10); 
+        gameNS.cameraSystem.Zoom(0.8); 
+    else if(count < 30)
+        gameNS.cameraSystem.Zoom(1.2); 
 
     gameNS.cameraSystem.draw();
     count ++;
