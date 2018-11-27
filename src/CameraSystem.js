@@ -5,6 +5,7 @@ class CameraSystem{
         this.focus = {};
         this.elements = [];
         this.zoomFactor = 1;
+        this.angle = 0;
     }
 
     addElement(elem){
@@ -48,6 +49,15 @@ class CameraSystem{
         var resetRatio = 1/this.zoomFactor;
         this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
         this.world.canvas.getContext("2d").scale(resetRatio, resetRatio);
+        this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
+    }
+
+    Rotate(angle){
+        //angle measured clockwise from top
+        var actualAngle = angle-this.angle;
+        this.angle = angle;
+        this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
+        this.world.canvas.getContext("2d").rotate(actualAngle * Math.PI / 180);
         this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
     }
 
