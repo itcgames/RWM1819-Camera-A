@@ -8,6 +8,8 @@ class CameraSystem{
         this.elements = [];
         this.zoomFactor = 1;
         this.angle = 0;
+        this.lerping = false;
+        this.lerpOptions = {dx:0, dy:0, lx: 0, ly: 0, startTime:0};
     }
 
     addElement(elem){
@@ -37,10 +39,35 @@ class CameraSystem{
     draw(){
         if(this.focusing)
         {
-            if(this.focusLastCoords.x !== this.focus.x || this.focusLastCoords.y !== this.focus.y)
+            if((this.focusLastCoords.x !== this.focus.x || this.focusLastCoords.y !== this.focus.y)&&this.lerping === false)
             {
-                this.Pan(this.focus.x-this.focusLastCoords.x, this.focusLastCoords.y-this.focus.y);
+                this.lerping = true;
+                this.lerpOptions.dx = this.focus.x-this.focusLastCoords.x;
+                this.lerpOptions.dy = this.focusLastCoords.y-this.focus.y;
+                this.lerpOptions.lx = 0;
+                this.lerpOptions.ly = 0;
+                this.lerpOptions.startTime = Date.now();
+                //var lerpStart = Date.now();
+                /*this.Pan(this.focus.x-this.focusLastCoords.x, this.focusLastCoords.y-this.focus.y);*/
                 this.focusLastCoords = {x:this.focus.x, y:this.focus.y};
+            }
+            if(this.lerping)
+            {
+                var factor = this.SmoothLerp(this.lerpOptions.startTime)
+                if(factor >= 1)
+                {
+                    factor = 1;
+                    this.lerping = false;
+                }
+                var targetDX = this.lerpOptions.dx*factor;
+                var targetDY = this.lerpOptions.dy*factor;
+                var tempx = targetDX;
+                var tempy = targetDY;
+                targetDX-=this.lerpOptions.lx;
+                targetDY-=this.lerpOptions.ly;
+                this.Pan(targetDX, targetDY);
+                this.lerpOptions.lx = tempx;
+                this.lerpOptions.ly = tempy;
             }
         }
         //this.cam.canvas.getContext("2d").clearRect(0,0, this.cam.canvas.width, this.cam.canvas.height);
@@ -81,6 +108,21 @@ class CameraSystem{
         this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
         this.world.canvas.getContext("2d").rotate(actualAngle * Math.PI / 180);
         this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
+    }
+
+    SmoothLerp(startTime, timeToTarget = 500){
+        //gives how far along you are before reaching the target
+        let lerpFactor = 0;
+        let now = Date.now();
+        lerpFactor = (now - startTime) / timeToTarget;
+        if(lerpFactor>1)
+            lerpFactor =1;
+        //gives the actual displacement factor
+        let smoothstepFactor = 0;
+
+        smoothstepFactor= lerpFactor * lerpFactor * (3.0 - 2.0 * lerpFactor);
+        return smoothstepFactor;
+        //find the actual position
     }
 
 

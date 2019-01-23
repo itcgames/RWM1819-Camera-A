@@ -42,15 +42,15 @@ function main()
 }
 
 function Loop(){
-    if(count < 10)
-        this.spr.x+=10;
-    else if(count < 20)
-        this.spr.y+=10;
-    else if(count < 25)
+    /*if(count%20 === 0)
+        this.spr.y+=100;*/
+    /*else if(count < 25)
         this.spr.y-=10;
     else if (count < 30)
-        this.spr.x-=10;
+        this.spr.x-=10;*/
 
     gameNS.cameraSystem.draw();
+    this.spr.x += 10;
+    
     count ++;
 }
