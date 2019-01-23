@@ -3,6 +3,8 @@ class CameraSystem{
         this.cam = new Camera(cameraSpace);
         this.world = new World(worldSpace);
         this.focus = {};
+        this.focusing = false;
+        this.focusLastCoords = {x:0,y:0};
         this.elements = [];
         this.zoomFactor = 1;
         this.angle = 0;
@@ -22,7 +24,25 @@ class CameraSystem{
         this.world.addElement(elem);
     }
 
+    addElementToCameraLayer(elem, layer){
+        this.elements.push(elem);
+        this.cam.addElementToLayer(elem, layer);
+    }
+
+    addElementToWorldLayer(elem, layer){
+        this.elements.push(elem);
+        this.world.addElementToLayer(elem, layer);
+    }
+
     draw(){
+        if(this.focusing)
+        {
+            if(this.focusLastCoords.x !== this.focus.x || this.focusLastCoords.y !== this.focus.y)
+            {
+                this.Pan(this.focus.x-this.focusLastCoords.x, this.focusLastCoords.y-this.focus.y);
+                this.focusLastCoords = {x:this.focus.x, y:this.focus.y};
+            }
+        }
         //this.cam.canvas.getContext("2d").clearRect(0,0, this.cam.canvas.width, this.cam.canvas.height);
         this.world.canvas.getContext("2d").clearRect(0,0, this.world.canvas.width, this.world.canvas.height);
         this.world.draw();
@@ -30,7 +50,9 @@ class CameraSystem{
     }
 
     setFocus(obj){
+        this.focusing = true;
         this.focus = obj;
+        this.focusLastCoords = {x:obj.x, y:obj.y};
     }
 
     Pan(x, y){
