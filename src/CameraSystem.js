@@ -9,7 +9,7 @@ class CameraSystem{
         this.zoomFactor = 1;
         this.angle = 0;
         this.lerping = false;
-        this.lerpOptions = {dx:0, dy:0, lx: 0, ly: 0, startTime:0};
+        this.lerpOptions = {dx:0, dy:0, lx: 0, ly: 0, startTime:0, duration: 200};
     }
 
     addElement(elem){
@@ -53,7 +53,7 @@ class CameraSystem{
             }
             if(this.lerping)
             {
-                var factor = this.SmoothLerp(this.lerpOptions.startTime)
+                var factor = this.SmoothLerp(this.lerpOptions.startTime, this.lerpOptions.duration)
                 if(factor >= 1)
                 {
                     factor = 1;
@@ -71,15 +71,16 @@ class CameraSystem{
             }
         }
         //this.cam.canvas.getContext("2d").clearRect(0,0, this.cam.canvas.width, this.cam.canvas.height);
-        this.world.canvas.getContext("2d").clearRect(0,0, this.world.canvas.width, this.world.canvas.height);
+        this.world.canvas.getContext("2d").clearRect(-1000,-1000, this.world.canvas.width*2, this.world.canvas.height*2);
         this.world.draw();
         this.cam.draw();
     }
 
-    setFocus(obj){
+    setFocus(obj, duration = 200){
         this.focusing = true;
         this.focus = obj;
         this.focusLastCoords = {x:obj.x, y:obj.y};
+        this.lerpOptions.duration = duration;
     }
 
     Pan(x, y){
@@ -110,7 +111,7 @@ class CameraSystem{
         this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
     }
 
-    SmoothLerp(startTime, timeToTarget = 500){
+    SmoothLerp(startTime, timeToTarget = 185){
         //gives how far along you are before reaching the target
         let lerpFactor = 0;
         let now = Date.now();
