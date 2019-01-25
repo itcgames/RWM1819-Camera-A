@@ -71,7 +71,7 @@ class CameraSystem{
             }
         }
         //this.cam.canvas.getContext("2d").clearRect(0,0, this.cam.canvas.width, this.cam.canvas.height);
-        this.world.canvas.getContext("2d").clearRect(-1000,-1000, this.world.canvas.width*2, this.world.canvas.height*2);
+        this.world.canvas.getContext("2d").clearRect(-1000,-1000, this.world.canvas.width*this.world.canvas.width, this.world.canvas.height*this.world.canvas.height);
         this.world.draw();
         this.cam.draw();
     }
