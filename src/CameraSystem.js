@@ -36,6 +36,18 @@ class CameraSystem{
         this.world.addElementToLayer(elem, layer);
     }
 
+    getElements(){
+        return this.elements;
+    }
+
+    getCameraElements(){
+        return this.cam.elements;
+    }
+
+    getWorldElements(){
+        return this.world.elements;
+    }
+
     draw(){
         if(this.focusing)
         {
