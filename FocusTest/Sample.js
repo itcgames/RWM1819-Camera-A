@@ -22,7 +22,7 @@ function main()
 
     gameNS.cameraSystem = new CameraSystem(worldCanvas, UICanvas);
     var imgSrc = new Image(100, 100);
-    imgSrc.src = "trashMammal.png";
+    imgSrc.src = "../trashMammal.png";
     imgSrc.x = 0;
     imgSrc.y = 0;
     imgSrc.w = 100;
@@ -42,15 +42,17 @@ function main()
 }
 
 function Loop(){
-    /*if(count%20 === 0)
-        this.spr.y+=100;*/
-    /*else if(count < 25)
+    if(count < 10)
+        this.spr.y+=10;
+    else if(count < 20)
+        this.spr.x += 10;
+    else if(count < 25)
         this.spr.y-=10;
     else if (count < 30)
-        this.spr.x-=10;*/
+        this.spr.x-=10;
 
     gameNS.cameraSystem.draw();
-    this.spr.x += 10;
+    //this.spr.x += 10;
     
     count ++;
 }

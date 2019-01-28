@@ -70,8 +70,8 @@ class CameraSystem{
                 this.lerpOptions.ly = tempy;
             }
         }
-        //this.cam.canvas.getContext("2d").clearRect(0,0, this.cam.canvas.width, this.cam.canvas.height);
-        this.world.canvas.getContext("2d").clearRect(-1000,-1000, this.world.canvas.width*this.world.canvas.width, this.world.canvas.height*this.world.canvas.height);
+        this.world.clear();
+        this.cam.canvas.getContext("2d").clearRect(-1000,-1000, this.cam.canvas.width*this.cam.canvas.width, this.cam.canvas.height*this.cam.canvas.height);
         this.world.draw();
         this.cam.draw();
     }
@@ -84,31 +84,20 @@ class CameraSystem{
     }
 
     Pan(x, y){
-        this.world.canvas.getContext("2d").translate(-x, y);
+        //this.world.canvas.getContext("2d").translate(-x, y);
+        this.world.pan(x,y);
     }
 
     Zoom(zoomRatio){
-        var actualZoom = zoomRatio/this.zoomFactor;
-        this.zoomFactor = zoomRatio;
-        this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
-        this.world.canvas.getContext("2d").scale(actualZoom, actualZoom);
-        this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
+        this.world.zoom(zoomRatio);
     }
 
     ResetZoom(){
-        var resetRatio = 1/this.zoomFactor;
-        this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
-        this.world.canvas.getContext("2d").scale(resetRatio, resetRatio);
-        this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
+        this.world.resetZoom();
     }
 
     Rotate(angle){
-        //angle measured clockwise from top
-        var actualAngle = angle-this.angle;
-        this.angle = angle;
-        this.world.canvas.getContext("2d").translate(this.world.canvas.width / 2, this.world.canvas.height / 2);
-        this.world.canvas.getContext("2d").rotate(actualAngle * Math.PI / 180);
-        this.world.canvas.getContext("2d").translate(-(this.world.canvas.width / 2), -(this.world.canvas.height / 2));
+        this.world.rotate(angle);
     }
 
     SmoothLerp(startTime, timeToTarget = 185){
@@ -124,6 +113,10 @@ class CameraSystem{
         smoothstepFactor= lerpFactor * lerpFactor * (3.0 - 2.0 * lerpFactor);
         return smoothstepFactor;
         //find the actual position
+    }
+
+    SetWorldLayerDepthFactor(d){
+        this.world.setDepthFactor(d);
     }
 
 

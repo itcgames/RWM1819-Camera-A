@@ -22,7 +22,7 @@ function main()
 
     gameNS.cameraSystem = new CameraSystem(worldCanvas, UICanvas);
     var imgSrc = new Image(100, 100);
-    imgSrc.src = "trashMammal.png";
+    imgSrc.src = "../trashMammal.png";
     imgSrc.x = 0;
     imgSrc.y = 0;
     imgSrc.w = 100;

@@ -22,43 +22,56 @@ function main()
 
     gameNS.cameraSystem = new CameraSystem(worldCanvas, UICanvas);
     var imgSrc = new Image(100, 100);
-    imgSrc.src = "trashMammal.png";
+    imgSrc.src = "../trashMammal.png";
     imgSrc.x = 0;
     imgSrc.y = 0;
     imgSrc.w = 100;
     imgSrc.h = 100;
 
-    this.img = new Sprite(100, 100, 100, 100, imgSrc);
+    this.img = new Sprite(50, 50, 100, 100, imgSrc);
     console.log("element");
 
     var spr1 = new Sprite(50, 50, 100, 100, imgSrc);
-    var spr2 = new Sprite(60, 60, 100, 100, imgSrc);
-    var spr3 = new Sprite(70, 70, 100, 100, imgSrc);
-    var spr4 = new Sprite(80, 80, 100, 100, imgSrc);
-    var spr5 = new Sprite(90, 90, 100, 100, imgSrc);
+    var spr2 = new Sprite(50, 50, 100, 100, imgSrc);
+    var spr3 = new Sprite(50, 50, 100, 100, imgSrc);
+    var spr4 = new Sprite(50, 0, 100, 100, imgSrc);
+    var spr5 = new Sprite(0, 0, 100, 100, imgSrc);
 
-    gameNS.cameraSystem.addElementToWorld(this.img);
-    debugger
-    gameNS.cameraSystem.addElementToCameraLayer(spr1, 1);
-    gameNS.cameraSystem.addElementToCameraLayer(spr2, 2);
-    //gameNS.cameraSystem.addElementToCameraLayer(spr3, 8);
-    //gameNS.cameraSystem.addElementToCameraLayer(spr4, 4);
-    //gameNS.cameraSystem.addElementToCameraLayer(spr5, 5);
+    //gameNS.cameraSystem.addElementToWorld(this.img);
+    gameNS.cameraSystem.addElementToWorldLayer(this.img, 1);
+    gameNS.cameraSystem.addElementToWorldLayer(spr1, 2);
+    gameNS.cameraSystem.addElementToWorldLayer(spr2, 3);
+    gameNS.cameraSystem.addElementToWorldLayer(spr3, 4);
+    gameNS.cameraSystem.addElementToCameraLayer(spr4, 3);
+    gameNS.cameraSystem.addElementToCameraLayer(spr5, 1);
+
+
     
     count = 0;
     setInterval(Loop, 33);
 }
 
 function Loop(){
-    /*if(count < 10)
+    //gameNS.cameraSystem.Pan(-10, 0); 
+    if(count < 50)
         gameNS.cameraSystem.Pan(-10, 0); 
-    else if(count < 20)
+    else if(count < 100)
+    {   
+        gameNS.cameraSystem.SetWorldLayerDepthFactor(1.5);
         gameNS.cameraSystem.Pan(0, 10);
-    else if(count < 25)
-        gameNS.cameraSystem.Pan(10, 0); 
-    else if (count < 30)
-        gameNS.cameraSystem.Pan(0, -10); */
+    }
+    else if(count < 150)
+    {
+        gameNS.cameraSystem.SetWorldLayerDepthFactor(0.5);
+        gameNS.cameraSystem.Pan(10, 0);
+
+    } 
+    else if (count < 200)
+    {
+        gameNS.cameraSystem.SetWorldLayerDepthFactor(1);
+        gameNS.cameraSystem.Pan(0, -10); 
+    }
 
     gameNS.cameraSystem.draw();
-    //count ++;
+    count ++;
 }

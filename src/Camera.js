@@ -1,16 +1,16 @@
 class Camera{
     constructor(canvas){
-        //this.elements = [];
+        this.elements = [];
         this.canvas = canvas;
-        this.layers = {1:[]};
+        this.layers = {0:[]};
     }
 
     addElement(elem){
-        this.layers[1].push(elem);
+        this.elements.push(elem);
+        this.addElementToLayer(elem, 1);
     }
 
     addElementToLayer(elem, layer){
-        debugger
         if(this.layers.hasOwnProperty(layer)){
             this.layers[layer].push(elem);
         }
@@ -19,6 +19,7 @@ class Camera{
             while(keys[keys.length - 1] != layer){
                 var index = keys.length;
                 this.layers[index] = [];
+                keys = Object.keys(this.layers);
             }
             this.layers[layer] = [];
             this.layers[layer].push(elem);
@@ -33,9 +34,5 @@ class Camera{
                 entry.draw(this.canvas);
             },this)
         }
-        /*this.elements.forEach(function(entry){
-            entry.draw(this.canvas);
-        },this)*/
     }
-
 }
