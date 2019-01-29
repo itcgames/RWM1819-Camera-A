@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome",
-            "url": "file:///C:/Users/gameuser/Documents/RWM%20repos/CameraComponent/LayerTest/index.html",
+            "url": "file:///C:/Users/gameuser/Documents/RWM%20repos/CameraComponent/FocusTest/index.html",
             "webRoot": "${workspaceFolder}"
         },
         {

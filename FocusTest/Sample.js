@@ -34,7 +34,7 @@ function main()
 
     gameNS.cameraSystem.addElementToWorld(this.img);
     gameNS.cameraSystem.addElementToWorld(this.spr);
-    gameNS.cameraSystem.setFocus(this.spr);
+    gameNS.cameraSystem.setFocus(this.spr, 200);
     //gameNS.cameraSystem.addElementToCamera(spr);
     
     count = 0;
