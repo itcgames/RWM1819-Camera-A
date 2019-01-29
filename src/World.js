@@ -78,6 +78,7 @@ class World {
 
     resetZoom(){
         var resetRatio = 1/this.zoomFactor;
+        this.zoomFactor = 1;
         for (var key in this.canvases) {
             var ctx = this.canvases[key].getContext("2d");
             ctx.translate(this.canvases[key].width / 2, this.canvases[key].height / 2);
